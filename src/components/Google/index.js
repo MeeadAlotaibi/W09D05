@@ -25,7 +25,7 @@ function Google() {
     <>
       <h1>Signin with Google</h1>
       <GoogleLogin
-        clientId="313299576143-aiehfsg7l0jrm7313aav0smgh11g150h.apps.googleusercontent.com"
+        clientId="1035985780644-dbl3vrpva42vql7lr6aqn3l1u425pil6.apps.googleusercontent.com"
         buttonText="Signin with Google"
         onSuccess={responseSuccessGoogle}
         onFailure={responseErrorGoogle}

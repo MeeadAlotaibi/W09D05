@@ -22,40 +22,41 @@ function Signup() {
         email,
         password,
       });
-      // console.log(res.data);
+     console.log(res);
       const data = {
         role: res.data.result.role.role,
         token: res.data.token,
       };
       dispatch(login(data));
-      // console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <>
-      {!state.sign.token ? (
-        <>
-          <input
-            type="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={signup}>Sign up</button>
-        </>
-      ) : (
-        <>
-          <Link to="/Tasks">
-            <buttoun>Tasks</buttoun>
-          </Link>{" "}
-        </>
-      )}
+      <div className="signup">
+        {!state.sign.token ? (
+          <>
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={signup}>Sign up</button>
+          </>
+        ) : (
+          
+            <Link to="/Posts">
+              <buttoun>posts</buttoun>
+            </Link>
+          
+        )}
+      </div>
     </>
   );
 }

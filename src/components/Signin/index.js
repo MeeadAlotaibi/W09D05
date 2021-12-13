@@ -23,9 +23,9 @@ function Signin() {
         email,
         password,
       });
-      // console.log(res.data);
+      console.log(res.data);
       const data = {
-        role: res.data.result.role.role,
+        role: res.data.result.role[0],
         token: res.data.token,
       };
       dispatch(login(data));
@@ -58,8 +58,8 @@ function Signin() {
               <buttoun>Dashboard</buttoun>
             </Link>
           ) : (
-            <Link to="/Tasks">
-              <buttoun>Tasks</buttoun>
+            <Link to="/Posts">
+              <buttoun>posts</buttoun>
             </Link>
           )}
         </>

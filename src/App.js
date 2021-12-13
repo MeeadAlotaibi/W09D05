@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 // import Tasks from "./components/Tasks";
 import Google from "./components/Google";
+import Posts from "./components/Posts";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route exact path="/Signup" element={<Signup />} />
         <Route exact path="/Google" element={<Google />} />
         <Route exact path="/Dashboard" element={<Dashboard />} />
-        {/* <Route exact path="/Task" element={<Task />} /> */}
+        <Route exact path="/Posts" element={<Posts />} />
       </Routes>
     </>
   );

@@ -1,20 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-function Landing() {
+import "./style.css";
+function Pages() {
   return (
     <>
-      <Link to="/Signin">
-        <button>Sign in</button>
-      </Link>
-      <Link to="/Signup">
-        <button>Sign up</button>
-      </Link>
-      <Link to="/SigninGoogle">
-        <button>Sign in with google</button>
-      </Link>
+      <div className="pages">
+        <Link to="/Signin">
+          <button>Sign in</button>
+        </Link>
+        <Link to="/Signup">
+          <button>Sign up</button>
+        </Link>
+        <Link to="/SigninGoogle">
+          <button>Sign in with google</button>
+        </Link>
+      </div>
     </>
   );
 }
 
-export default Landing;
+export default Pages;
