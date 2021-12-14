@@ -1,0 +1,48 @@
+
+
+*{
+  margin: 0;
+  padding: 0;
+}
+.ulNav {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
+  background-color: rgb(255, 255, 255);
+}
+
+
+.containerNav {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.01px solid  rgb(55, 104, 119);
+}
+
+.loguot {
+  background-color: white;
+  border-color: white;
+  border-radius: px;
+}
+
+.lii {
+  font-family: 'Tajawal', sans-serif;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  margin-right: 60px;
+  margin-left: 60px;
+  margin-top: 10px;
+  list-style: none;  
+}
+.linkk {
+  text-decoration: none;
+  color: rgb(2 2 88);
+}
+#linkk3{
+ text-decoration: none;
+  color: rgb(2 2 88);
+  margin-left: -150px;
+}
+.linkk:hover {
+  color: rgb(2 2 88);
+}

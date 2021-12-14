@@ -1,0 +1,51 @@
+.post{
+  margin-top: 10%;
+  margin-left:20%;
+  margin-right: 20%;
+}
+.continner {
+  margin-top: 10%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+.proifleImg {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
+.userP {
+  border: 1px solid cadetblue;
+  box-shadow: 5px 10px cadetblue;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+}
+img{
+    float: left;
+}
+.tweet {
+  margin-left: 30px;
+  border-radius: 2px solid cadetblue;
+  display: flex;
+  justify-content: center;
+}
+.post {
+  display: flex;
+  justify-content: center;
+}
+.btnTweet {
+  border: none;
+  margin-top: 30px;
+  color: white;
+  background-color: cadetblue;
+  margin-left: 10px;
+  border-radius: 10px;
+  width: 90px;
+  height: 30px;
+}
+.text{
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 300px;
+    height: 50px; 
+}

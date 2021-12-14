@@ -1,72 +1,85 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; /// Link,
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../reducers/sign";
-import { getAllTasks } from "../../reducers/admin";
 import Pages from "../Pages";
-// import Task from "../Task";
 import axios from "axios";
 
+/////////////////////////////////////////////////////////
+
 function Dashboard() {
+  let navigate = useNavigate();
   const dispatch = useDispatch();
+  const [users, setUsers] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    getTasks();
+    getUsers();
   }, []);
+
+  /////////////////////////////////////////////////////////
 
   const state = useSelector((state) => {
     return {
       sign: state.sign,
-      admin: state.admin,
     };
   });
 
-  console.log("tasks", state.admin);
+  /////////////////////////////////////////////////////////
 
-  const getTasks = async () => {
+  const getUsers = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/tasks`, {
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`, {
         headers: { Authorization: `Bearer ${state.sign.token}` },
       });
       console.log(res.data);
-      dispatch(getAllTasks(res.data));
+      setUsers(res.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const deleteTasks = async (id) => {
-  //   try {
-  //     console.log(id);
-  //     const res = await axios.delete(
-  //       `${process.env.REACT_APP_BASE_URL}/delatedTasks/${id}`,
-  //       {
-  //         headers: { Authorization: `Bearer ${state.sign.token}` },
-  //       }
-  //     );
-  //     console.log(res.data);
-  //     getTasks();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  /////////////////////////////////////////////////////////
+
+  const deleteUsers = async (id) => {
+    try {
+      const res = await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/deleteUser/${id}`,
+        {
+          headers: { Authorization: `Bearer ${state.sign.token}` },
+        }
+      );
+      // console.log(res.data);
+      getUsers();
+    } catch (error) {
+      console.log(error);
+      console.log(error.response.data.message);
+    }
+  };
+
+  /////////////////////////////////////////////////////////
 
   const logOut = () => {
     dispatch(logout({ user: "", token: "" }));
+    navigate(`/`);
   };
+
+  /////////////////////////////////////////////////////////
 
   return (
     <>
       {state.sign.token ? (
         <>
-          <ul>
-            {/* {state.admin.posts.map((item) => (
-              <Task key={item._id} item={item} deleteTasks={deleteTasks} />
-            ))} */}
-          </ul>
-          <Link to="/">
-            <button onClick={logOut}>log out</button>
-          </Link>
+          <h1>Dashboard</h1>
+          {message}
+          {users.map((item) => (
+            <div key={item._id}>
+              <h4>{item.email}</h4>
+              <h4>{item.username}</h4>
+              <button onClick={() => deleteUsers(item._id)}>Delete</button>
+            </div>
+          ))}
+          <button onClick={logOut}>log out</button>
         </>
       ) : (
         <Pages />
@@ -74,5 +87,4 @@ function Dashboard() {
     </>
   );
 }
-
 export default Dashboard;

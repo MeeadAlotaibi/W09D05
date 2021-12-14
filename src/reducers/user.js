@@ -2,6 +2,8 @@ const initState = {
   posts: [],
 };
 
+/////////////////////////////////////////////////////////
+
 const user = (state = initState, action) => {
   const { type, payload } = action;
 
@@ -31,8 +33,9 @@ const user = (state = initState, action) => {
       return state;
   }
 };
-
 export default user;
+
+/////////////////////////////////////////////////////////
 
 export const getTasks = (data) => {
   return {
@@ -41,12 +44,16 @@ export const getTasks = (data) => {
   };
 };
 
+/////////////////////////////////////////////////////////
+
 export const postTasks = (data) => {
   return {
     type: "POST_TASKS",
     payload: data,
   };
 };
+
+/////////////////////////////////////////////////////////
 
 export const putTasks = (data) => {
   return {
@@ -55,9 +62,13 @@ export const putTasks = (data) => {
   };
 };
 
+/////////////////////////////////////////////////////////
+
 export const deleteTasks = (data) => {
   return {
     type: "DELETE_TASKS",
     payload: data,
   };
 };
+
+/////////////////////////////////////////////////////////

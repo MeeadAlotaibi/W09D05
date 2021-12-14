@@ -1,69 +1,149 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import Pages from "../Pages";
+import { IoHeartSharp, IoHeartOutline } from "react-icons/io5";
+import axios from "axios";
 import "./style.css";
-const BASE_URL = "http://localhost:5000"; //"https://project2-tuwaiq.herokuapp.com";
+import img from "./../Img/images.png";
+
+/////////////////////////////////////////////////////////
 
 function Posts() {
-  const [post, setPost] = useState([]);
-  let navigate = useNavigate(); //// ...استخدمها اذا ابيه ينتقل من مكان الى آخر
-const state = useSelector((state) => {
-  return {
-    sign: state.sign,
-  };
-});
-console.log(state.sign.token);
-  /////////////////// وظيفة اليوزإفكت تعطيه أمر بأنهاول مايدخل الصفحة يعرض لي هذي البيانات
-  useEffect(() => {
-    getAllpost(); /// تروح تستدعي الداله اللي جابت البيانات في الباك إند
-  }, []);
+  let navigate = useNavigate();
+  const [posts, setPosts] = useState([]);
+  const [message, setMessage] = useState("");
+  const [desc, setDesc] = useState("");
+  const [isLiked, setIsLiked] = useState("like");
 
-  /////////////////// تروح تجيب البيانات من الباك اند
-  const getAllpost = async () => {
-    const post = await axios.get(
-      `${BASE_URL}/`,
+  /////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+  /////////////////////////////////////////////////////////
+
+  const state = useSelector((state) => {
+    return {
+      sign: state.sign, //state.sign.token
+    };
+  });
+  console.log(state, "staate");
+  console.log(posts);
+
+  /////////////////////////////////////////////////////////
+
+  const getPosts = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/`, {
+        headers: { Authorization: `Bearer ${state.sign.token}` },
+      });
+      setPosts(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  /////////////////////////////////////////////////////////
+
+  const createPost = async () => {
+    console.log("desc", desc);
+    console.log(state.sign.token);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/newpost`,
+        { desc },
+        {
+          headers: { Authorization: `Bearer ${state.sign.token}` },
+        }
+      );
+      getPosts();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  /////////////////////////////////////////////////////////
+
+  const like = async (id) => {
+    console.log(id);
+    const result = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/likes/`,
+      { by: state.sign.id, onPost: id },
       {
         headers: {
           Authorization: `Bearer ${state.sign.token}`,
         },
-      } 
+      }
     );
-    console.log(post.data); ///////// <=== عشان نشوف الداتا في الكونسول ونتاكد انها وصلت لنا !!
-    setPost(post.data); //////// <===وتخزنهم في هذا المتغير  وتتغير الكلتشر بدال ماهي ارراي فاضية تصير تحتوي على هذه البيانات
+    if (isLiked == "like") setIsLiked("unlike");
+    else {
+      setIsLiked("like");
+    }
+    getPosts();
+  };
+  /////////////////////////////////////////////////////////
+
+  const deletee = async (id) => {
+    try {
+      const res = await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/deletePost/${id}`,
+        {
+          headers: { Authorization: `Bearer ${state.sign.token}` },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    getPosts();
   };
 
-  /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
 
-  const goInside = (id) => {
-    /////// بعدين اقول له روح ادخل على هذا العنصر و اعطيته الباث تبعه
-    console.log(id);
-    navigate(`/culture/${id}`);
-  };
 
   return (
-    /////// هنا يعرض لي ع البراوزر
-    <div className="allCluture">
-      {/* <img className="backImg1" src={Cult} alt="backImg" /> */}
-      <h1 className="text1">Time line</h1>
+    <>
+      
+      <>
+        <div className="post">
+          <h1> Write tweet:</h1>
+          <textarea
+            className="text"
+            rows="2"
+            cols="30"
+            onChange={(e) => setDesc(e.target.value)}
+          />
+          <button calssName="btnTweet" onClick={createPost}>
+            send
+          </button>
+        </div>
 
-      {post.map((elem) => {
-        
-        return (
-          <>
-            <div
-              onClick={() => {
-                goInside(elem._id);
-              }}
-              className="oneCluture"
-            >
-              {/* <img className="immm" src={elem.img} alt="culture" /> */}
-              <h5 className="cultureName"> {elem.desc} </h5>
+        {/* <label>Choose Photo </label>
+        <input type="file" name="post" onChange={handleChange} />
+        <img src={url} alt="firebase" />
+        <progress value={progress} max="100" /> */}
+        {/* <button onClick={createPost}>Post</button> */}
+      </>
+      {posts.map((item) => (
+        <div key={item._id} className="continner">
+          <div className="userP">
+            <img src={img} alt="img" className="proifleImg" />
+            <h4>{item.user.userName}</h4>
+            <div className="tweet">
+              <h4>{item.desc}</h4>
+              <button className="likes" onClick={() => like(item._id)}>
+                {isLiked}
+              </button>
+              <button onClick={() => deletee(item._id)}> delete </button>
             </div>
-          </>
-        );
-      })}
-    </div>
+
+            {/* <img src={item.img} alt="img" /> */}
+            {/* <button onClick={() => deleteUsers(item._id)}>Delete</button> */}
+          </div>
+
+          {/* <hr /> */}
+        </div>
+      ))}
+    </>
   );
 }
+
 export default Posts;
