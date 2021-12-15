@@ -22,7 +22,7 @@ function Signin() {
       sign: state.sign,
     };
   });
-  // console.log(state.sign);
+  // console.log(state.sign, "hhhhhhiiiiiiiiiii :(( I'm dying ....");
 
   /////////////////////////////////////////////////////////
 
@@ -32,7 +32,7 @@ function Signin() {
         email: emailORusername,
         password,
       });
-
+      // console.log(res , "hhhhhhiiiiiiiiiii :(( ...." );
       const data = {
         id: res.data.result._id,
         role: res.data.result.role.role,
@@ -46,7 +46,7 @@ function Signin() {
       }
     } catch (error) {
       console.log(error);
-      console.log(error.response.data);
+      // console.log(error.response.data);
       setMessage(error.response.data);
     }
   };
@@ -73,8 +73,8 @@ function Signin() {
             <button className="btnSignup" onClick={signin}>
               Sign in
             </button>
-            {message}
-            <Google />
+            {/* {message} */}
+            {/* <Google /> */}
             <Link to="/ForgotPassword">
               <p> forgot password?</p>{" "}
             </Link>
@@ -83,12 +83,12 @@ function Signin() {
               <span>
                 <Link to="/Signup">Sign up</Link>
               </span>
-              .
+              
             </p>
           </>
         ) : (
           <>
-            {/* {!state.sign.role === "admin" ? (
+            {state.sign.role === "admin" ? (
             <Link to="/Dashboard">
               <buttoun>Dashboard</buttoun>
             </Link>
@@ -96,7 +96,7 @@ function Signin() {
             <Link to="/Posts">
               <buttoun>Posts</buttoun>
             </Link>
-          )} */}
+          )}
           </>
         )}
       </div>
