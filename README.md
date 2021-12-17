@@ -1,4 +1,4 @@
-# Code Overview
+# Social Media
 
 Samulate twitter web page built by the React , ReactDOM and Redux framework.
 
