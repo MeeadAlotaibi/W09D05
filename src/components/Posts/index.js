@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Pages from "../Pages";
 import { IoHeartSharp, IoHeartOutline } from "react-icons/io5";
@@ -10,7 +10,7 @@ import img from "./../Img/images.png";
 /////////////////////////////////////////////////////////
 
 function Posts() {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const [desc, setDesc] = useState("");
@@ -95,13 +95,30 @@ function Posts() {
     }
     getPosts();
   };
+////////////////////////////////////////////////////////////
+const editComment = async (comId) => {
+  try {
+    await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/editComment/${id}/${comId}`,
+      {
+        comment: newComment,
+      },
+      {
+        headers: { Authorization: `Bearer ${state.sign.token}` },
+      }
+    );
+    getPost();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
   /////////////////////////////////////////////////////////
 
 
   return (
     <>
-      
       <>
         <div className="post">
           <h1> Write tweet:</h1>
@@ -133,6 +150,7 @@ function Posts() {
                 {isLiked}
               </button>
               <button onClick={() => deletee(item._id)}> delete </button>
+              <button onClick={() => editComment(item._id)}>Edit</button>
             </div>
 
             {/* <img src={item.img} alt="img" /> */}
