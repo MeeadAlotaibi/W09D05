@@ -1,9 +1,13 @@
-# Code Overview
+# Social Media
+
 Samulate twitter web page built by the React , ReactDOM and Redux framework.
+
 ---
 ## User Stories
+
 As a user registered on the website, i have the ability to show, add, change and delete posts, so that I may share and review posts.
 Or , as an admin user, I want to show and delete a users and their posts and comments.
+
 ---
 ## Getting started
 
